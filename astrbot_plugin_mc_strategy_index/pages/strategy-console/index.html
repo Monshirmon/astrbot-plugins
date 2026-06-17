@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MC攻略索引控制台</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div>
+            <div class="eyebrow">Minecraft Strategy Index</div>
+            <h1>攻略控制台</h1>
+          </div>
+          <button id="refreshBtn" class="icon-button" type="button" aria-label="刷新">🔄</button>
+        </div>
+
+        <div class="toolbar">
+          <div class="tab-row">
+            <button class="tab active" data-filter="all" type="button">全部</button>
+            <button class="tab" data-filter="normal" type="button">已规范</button>
+            <button class="tab" data-filter="pending" type="button">待整改</button>
+          </div>
+          <div class="toolbar-actions">
+            <input id="searchInput" class="text-input" type="search" placeholder="搜索攻略..." />
+            <button id="newStrategyBtn" class="primary-button" type="button">+ 新建攻略</button>
+          </div>
+        </div>
+
+        <div id="listMeta" class="list-meta"></div>
+        <div id="strategyList" class="strategy-list"></div>
+      </aside>
+
+      <main class="editor">
+        <div id="emptyState" class="empty-state">
+          <h2>选择或新建一篇攻略开始编辑</h2>
+        </div>
+
+        <div id="editor" class="editor-content hidden">
+          <div class="editor-header">
+            <div>
+              <div id="editorEyebrow" class="eyebrow">攻略详情</div>
+              <h2 id="editorTitle">未命名攻略</h2>
+            </div>
+            <div class="header-actions">
+              <button id="saveBtn" class="primary-button" type="button">保存</button>
+              <button id="deleteBtn" class="danger-button" type="button">删除</button>
+            </div>
+          </div>
+
+          <div id="statusBanner" class="status-banner hidden" role="status" aria-live="polite"></div>
+
+          <section class="panel">
+            <div class="panel-title">基础信息</div>
+            <div class="grid two">
+              <label class="field">
+                <span>攻略名称</span>
+                <input id="nameInput" class="text-input" type="text" placeholder="输入攻略名称" />
+              </label>
+              <label class="field">
+                <span>分类</span>
+                <select id="categoryInput" class="text-input">
+                  <option value="">-- 选择分类 --</option>
+                </select>
+              </label>
+            </div>
+            <div class="grid two">
+              <label class="field">
+                <span>子分类</span>
+                <input id="subcategoryInput" class="text-input" type="text" placeholder="可选子分类" />
+              </label>
+              <label class="field">
+                <span>状态</span>
+                <select id="statusInput" class="text-input">
+                  <option value="normal">已规范</option>
+                  <option value="pending_review">待整改</option>
+                  <option value="needs_image_edit">待优化图片</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">触发词 (严格匹配，用户发送即返回本攻略)</div>
+            <div id="triggerWordsContainer" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;"></div>
+            <div style="display:flex;gap:8px;">
+              <input id="triggerWordInput" class="text-input" type="text" placeholder="输入触发词后按回车添加" />
+              <button id="addTriggerWordBtn" class="secondary-button" type="button">添加</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div class="panel-title">文字内容</div>
+            </div>
+            <textarea id="textContentInput" class="text-area mono" rows="6" placeholder="攻略的文字内容..."></textarea>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div class="panel-title">攻略图片</div>
+              <div class="button-row">
+                <button id="uploadImageBtn" class="secondary-button" type="button">上传图片</button>
+              </div>
+            </div>
+            <input id="hiddenUploadInput" type="file" accept="image/*" class="hidden" />
+            <div id="imagePreviewContainer" style="margin-top:12px;"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">统计数据</div>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div id="statTotal" class="stat-value">0</div>
+                <div class="stat-label">总攻略数</div>
+              </div>
+              <div class="stat-card">
+                <div id="statNormal" class="stat-value">0</div>
+                <div class="stat-label">已规范</div>
+              </div>
+              <div class="stat-card">
+                <div id="statPending" class="stat-value">0</div>
+                <div class="stat-label">待整改</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

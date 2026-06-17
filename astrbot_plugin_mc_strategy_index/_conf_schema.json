@@ -1,0 +1,125 @@
+{
+    "admin_whitelist": {
+        "description": "管理员白名单",
+        "type": "list",
+        "hint": "白名单用户拥有管理员权限，可进行攻略上传、巡检、整改、删除等管理操作。",
+        "default": [],
+        "items": {
+            "type": "string"
+        }
+    },
+    "notify_permission_denied": {
+        "description": "无权限时发送提醒",
+        "type": "bool",
+        "hint": "关闭后，无权限用户执行管理命令时将静默忽略。",
+        "default": true
+    },
+    "cmd_upload": {
+        "description": "上传攻略指令",
+        "type": "string",
+        "hint": "管理员上传攻略资源的指令关键词。",
+        "default": "/上传攻略"
+    },
+    "cmd_search": {
+        "description": "查询攻略指令",
+        "type": "string",
+        "hint": "萌新玩家查询攻略的指令关键词。",
+        "default": "/攻略"
+    },
+    "cmd_list": {
+        "description": "攻略列表指令",
+        "type": "string",
+        "hint": "查看攻略分类/列表的指令关键词。",
+        "default": "/攻略列表"
+    },
+    "cmd_inspect": {
+        "description": "巡检攻略指令",
+        "type": "string",
+        "hint": "管理员巡检攻略库的指令关键词。",
+        "default": "/巡检攻略"
+    },
+    "cmd_delete": {
+        "description": "删除攻略指令",
+        "type": "string",
+        "hint": "管理员删除攻略的指令关键词。",
+        "default": "/删除攻略"
+    },
+    "cmd_edit": {
+        "description": "编辑攻略指令",
+        "type": "string",
+        "hint": "管理员编辑攻略的指令关键词。",
+        "default": "/编辑攻略"
+    },
+    "cmd_replace_image": {
+        "description": "替换攻略图片指令",
+        "type": "string",
+        "hint": "管理员替换攻略图片的指令关键词。",
+        "default": "/替换攻略图"
+    },
+    "cmd_rectify": {
+        "description": "整改攻略指令",
+        "type": "string",
+        "hint": "管理员触发图片整改的指令关键词。",
+        "default": "/整改攻略"
+    },
+    "cmd_category": {
+        "description": "攻略分类管理指令",
+        "type": "string",
+        "hint": "管理员管理攻略分类的指令关键词。",
+        "default": "/攻略分类"
+    },
+    "cmd_log": {
+        "description": "操作日志指令",
+        "type": "string",
+        "hint": "管理员查看操作日志的指令关键词。",
+        "default": "/攻略日志"
+    },
+    "image_api_provider": {
+        "description": "图片编辑API提供商",
+        "type": "string",
+        "hint": "支持 openai / doubao 等。用于攻略图片标准化整改。",
+        "default": "openai"
+    },
+    "image_api_key": {
+        "description": "图片编辑API密钥",
+        "type": "string",
+        "hint": "对应提供商的API密钥，留空则图片整改功能不可用。",
+        "default": ""
+    },
+    "image_api_base_url": {
+        "description": "图片编辑API地址",
+        "type": "string",
+        "hint": "API基础地址，默认OpenAI官方地址。可自定义代理地址。",
+        "default": "https://api.openai.com"
+    },
+    "image_api_model": {
+        "description": "图片编辑模型",
+        "type": "string",
+        "hint": "使用的模型名称。OpenAI 推荐 gpt-4o。",
+        "default": "gpt-4o"
+    },
+    "enable_image_edit": {
+        "description": "启用图片编辑功能",
+        "type": "bool",
+        "hint": "关闭后，巡检时不会自动触发图片整改，仅做标记。",
+        "default": false
+    },
+    "max_image_size_kb": {
+        "description": "图片大小上限(KB)",
+        "type": "int",
+        "hint": "上传攻略图片的大小上限，默认 5120KB (5MB)。",
+        "default": 5120
+    },
+    "search_fuzzy_match": {
+        "description": "开启模糊匹配",
+        "type": "bool",
+        "hint": "开启后，攻略查询支持关键词模糊匹配。",
+        "default": true
+    },
+    "quote_reply": {
+        "description": "引用回复",
+        "type": "bool",
+        "hint": "回复时是否引用触发查询的消息。",
+        "default": true
+    }
+}

@@ -1,0 +1,1 @@
+"""WebUI helpers for MC Strategy Index plugin."""
