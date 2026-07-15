@@ -4,4 +4,4 @@ short_desc: MC公会攻略资源管理与萌新自助查询系统
 desc: 面向MC服务器公会社群的轻量化攻略索引机器人。支持图文攻略上传、自动建库、触发词检索、管理员巡检整改、图片编辑API联动。
 version: v1.0.0
 author: plusing
-repo: https://github.com/plusing/astrbot_plugin_mc_strategy_index
+repo: https://github.com/Monshirmon/astrbot-plugins
