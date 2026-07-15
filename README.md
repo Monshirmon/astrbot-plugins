@@ -1,4 +1,10 @@
-# AstrBot 插件集合
+# AstrBot 插件集合（存档）
+
+> ⚠️ 插件已迁移至独立仓库进行维护：
+> - [astrbot_plugin_mc_strategy_index](https://github.com/Monshirmon/astrbot_plugin_mc_strategy_index)
+> - [astrbot_plugin_silence_ban](https://github.com/Monshirmon/astrbot_plugin_silence_ban)
+>
+> 本分支仅保留历史代码，不再更新。
 
 欢迎来到慕雪梦的插件仓库。
 
