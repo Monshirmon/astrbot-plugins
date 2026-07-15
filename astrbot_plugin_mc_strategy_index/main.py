@@ -14,7 +14,6 @@ from .webui.api import StrategyIndexWebUIApi
 
 
 class MCStrategyIndexPlugin(Star):
-    """MC公会萌新攻略索引机器人插件。"""
 
     def __init__(self, context: Context, config: dict = None):
         super().__init__(context)
@@ -42,10 +41,9 @@ class MCStrategyIndexPlugin(Star):
         self.webui_api = StrategyIndexWebUIApi(self)
         self.webui_api.register()
 
-    # ==================== 上传攻略 ====================
+    # ==================== 上传 ====================
 
     async def _do_upload(self, event: AstrMessageEvent):
-        """统一的上传入口，支持 /上传攻略 和 /上传 两种前缀。"""
         msg = event.message_str.strip()
         text = msg
         for prefix in ["/上传攻略", "/上传", "上传攻略", "上传"]:
@@ -60,16 +58,16 @@ class MCStrategyIndexPlugin(Star):
                 yield res
 
     @filter.command("上传攻略")
-    async def cmd_upload_strategy(self, event: AstrMessageEvent):
+    async def cmd_upload_strategy(self, event):
         async for res in self._do_upload(event):
             yield res
 
     @filter.command("上传")
-    async def cmd_upload(self, event: AstrMessageEvent):
+    async def cmd_upload(self, event):
         async for res in self._do_upload(event):
             yield res
 
-    # ==================== 索引命令 ====================
+    # ==================== 索引 ====================
 
     async def _do_index(self, event: AstrMessageEvent):
         try:
@@ -77,20 +75,19 @@ class MCStrategyIndexPlugin(Star):
             if reply:
                 yield reply
         except Exception as e:
-            logger.error(f"索引命令异常: {e}", exc_info=True)
             yield event.plain_result(f"获取索引失败: {e}")
 
     @filter.command("索引")
-    async def cmd_index(self, event: AstrMessageEvent):
+    async def cmd_index(self, event):
         async for res in self._do_index(event):
             yield res
 
     @filter.command("攻略索引")
-    async def cmd_strategy_index(self, event: AstrMessageEvent):
+    async def cmd_strategy_index(self, event):
         async for res in self._do_index(event):
             yield res
 
-    # ==================== 查询攻略 ====================
+    # ==================== 搜索 ====================
 
     @filter.command("查攻略")
     async def cmd_search(self, event: AstrMessageEvent):
@@ -98,7 +95,6 @@ class MCStrategyIndexPlugin(Star):
             async for res in self.search_module.search_strategy(event):
                 yield res
         except Exception as e:
-            logger.error(f"搜索攻略异常: {e}", exc_info=True)
             yield event.plain_result(f"查询失败: {e}")
 
     @filter.command("攻略列表")
@@ -113,10 +109,9 @@ class MCStrategyIndexPlugin(Star):
                 async for res in self.search_module.list_categories(event):
                     yield res
         except Exception as e:
-            logger.error(f"攻略列表异常: {e}", exc_info=True)
             yield event.plain_result(f"获取列表失败: {e}")
 
-    # ==================== 巡检攻略 ====================
+    # ==================== 巡检/整改 ====================
 
     @filter.command("巡检攻略")
     async def cmd_inspect(self, event: AstrMessageEvent):
@@ -124,7 +119,6 @@ class MCStrategyIndexPlugin(Star):
             async for res in self.inspect_module.inspect_library(event):
                 yield res
         except Exception as e:
-            logger.error(f"巡检异常: {e}", exc_info=True)
             yield event.plain_result(f"巡检失败: {e}")
 
     @filter.command("整改攻略")
@@ -133,10 +127,9 @@ class MCStrategyIndexPlugin(Star):
             async for res in self.inspect_module.rectify_strategy(event):
                 yield res
         except Exception as e:
-            logger.error(f"整改异常: {e}", exc_info=True)
             yield event.plain_result(f"整改失败: {e}")
 
-    # ==================== 删除攻略 ====================
+    # ==================== 删除/编辑/替换 ====================
 
     @filter.command("删除攻略")
     async def cmd_delete(self, event: AstrMessageEvent):
@@ -144,10 +137,7 @@ class MCStrategyIndexPlugin(Star):
             async for res in self.manage_module.delete_strategy(event):
                 yield res
         except Exception as e:
-            logger.error(f"删除攻略异常: {e}", exc_info=True)
             yield event.plain_result(f"删除失败: {e}")
-
-    # ==================== 编辑攻略 ====================
 
     @filter.command("编辑攻略")
     async def cmd_edit(self, event: AstrMessageEvent):
@@ -155,10 +145,7 @@ class MCStrategyIndexPlugin(Star):
             async for res in self.manage_module.edit_strategy(event):
                 yield res
         except Exception as e:
-            logger.error(f"编辑攻略异常: {e}", exc_info=True)
             yield event.plain_result(f"编辑失败: {e}")
-
-    # ==================== 替换图片 ====================
 
     @filter.command("替换攻略图")
     async def cmd_replace_image(self, event: AstrMessageEvent):
@@ -166,10 +153,7 @@ class MCStrategyIndexPlugin(Star):
             async for res in self.manage_module.replace_image(event):
                 yield res
         except Exception as e:
-            logger.error(f"替换图片异常: {e}", exc_info=True)
             yield event.plain_result(f"替换图片失败: {e}")
-
-    # ==================== 分类管理 ====================
 
     @filter.command("攻略分类管理")
     async def cmd_category(self, event: AstrMessageEvent):
@@ -177,10 +161,7 @@ class MCStrategyIndexPlugin(Star):
             async for res in self.manage_module.manage_categories(event):
                 yield res
         except Exception as e:
-            logger.error(f"分类管理异常: {e}", exc_info=True)
             yield event.plain_result(f"分类管理失败: {e}")
-
-    # ==================== 操作日志 ====================
 
     @filter.command("攻略日志")
     async def cmd_log(self, event: AstrMessageEvent):
@@ -188,21 +169,25 @@ class MCStrategyIndexPlugin(Star):
             async for res in self.inspect_module.view_logs(event):
                 yield res
         except Exception as e:
-            logger.error(f"查看日志异常: {e}", exc_info=True)
             yield event.plain_result(f"获取日志失败: {e}")
 
-    # ==================== 消息监听（严格触发词匹配） ====================
+    # ==================== 消息监听 ====================
 
     @filter.event_message_type(filter.EventMessageType.ALL)
     async def on_message(self, event: AstrMessageEvent):
-        """监听所有消息，处理严格触发词匹配。"""
         msg = event.message_str.strip()
         if not msg:
             return
 
-        # 跳过所有命令消息（斜杠开头或匹配管理命令前缀）
+        # 内置触发词优先（不经过攻略库匹配）
+        builtin = self.utils.build_builtin_trigger_reply(event, msg)
+        if builtin:
+            yield builtin
+            return
+
         if msg.startswith("/"):
             return
+
         management_prefixes = [
             "上传攻略", "上传 ", "编辑攻略", "删除攻略",
             "查攻略", "攻略列表", "攻略分类管理", "攻略日志",
@@ -212,9 +197,7 @@ class MCStrategyIndexPlugin(Star):
             if msg.startswith(p):
                 return
 
-        # 严格匹配触发词
         trigger_result = await self.trigger_module.handle_message(event)
         if trigger_result:
             async for res in self.trigger_module.send_trigger_reply(event, trigger_result):
                 yield res
-            return

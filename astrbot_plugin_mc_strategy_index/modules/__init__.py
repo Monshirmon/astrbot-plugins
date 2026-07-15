@@ -1,0 +1,1 @@
+# MC Strategy Index plugin modules

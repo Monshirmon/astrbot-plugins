@@ -7,22 +7,21 @@ PLUGIN_NAME = "astrbot_plugin_mc_strategy_index"
 
 def build_plugin_state_payload(plugin: Any) -> dict[str, Any]:
     return {
-        "strategies": [
-            _serialize_strategy(st) for st in plugin.data.get("strategies", [])
-        ],
+        "strategies": [_serialize_strategy(st) for st in plugin.data.get("strategies", [])],
         "categories": list(plugin.data.get("categories", [])),
         "index_image_path": plugin.data.get("index_image_path", ""),
         "trigger_words": plugin.utils.get_all_trigger_words(),
         "defaults": {
             "enable_image_edit": bool(plugin.config.get("enable_image_edit", False)),
-            "search_fuzzy_match": bool(plugin.config.get("search_fuzzy_match", True)),
         },
         "config": {
             "image_api_provider": plugin.config.get("image_api_provider", "openai"),
             "image_api_model": plugin.config.get("image_api_model", "gpt-4o"),
             "has_api_key": bool(plugin.config.get("image_api_key", "")),
         },
+        "image_count": len(os.listdir(plugin.image_dir)) if hasattr(plugin, 'image_dir') and os.path.isdir(plugin.image_dir) else 0,
     }
+import os
 
 
 def _serialize_strategy(st: dict[str, Any]) -> dict[str, Any]:
@@ -45,7 +44,6 @@ def sanitize_strategy_payload(payload: dict[str, Any]) -> dict[str, Any]:
     name = str(payload.get("name", "") or "").strip()
     if not name:
         raise ValueError("攻略名称不能为空")
-
     return {
         "name": name,
         "category": str(payload.get("category", "") or "").strip(),
